@@ -40,7 +40,7 @@ def bucket(s3):
 def test_file_to_df_calls_for_csv():
     test_in = "s3://test_bucket/test_data/test_file.csv"
     with patch('awswrangler.s3.read_csv', return_value=True) as patch_func:
-        test_out = file_to_df(test_in)
+        test_out = file_to_df(test_in,"csv")
         test_args = patch_func.call_args.args
     assert test_out
     assert test_args[0] == test_in
@@ -49,7 +49,7 @@ def test_file_to_df_calls_for_csv():
 def test_file_to_df_calls_for_json():
     test_in = "s3://test_bucket/test_data/test_file.json"
     with patch('awswrangler.s3.read_json', return_value=True) as patch_func:
-        test_out = file_to_df(test_in)
+        test_out = file_to_df(test_in,"json")
         test_args = patch_func.call_args.args
     assert test_out
     assert test_args[0] == test_in
@@ -58,7 +58,7 @@ def test_file_to_df_calls_for_json():
 def test_file_to_df_calls_for_parq():
     test_in = "s3://test_bucket/test_data/test_file.parquet"
     with patch('awswrangler.s3.read_parquet', return_value=True) as patch_func:
-        test_out = file_to_df(test_in)
+        test_out = file_to_df(test_in,"parquet")
         test_args = patch_func.call_args.args
     assert test_out
     assert test_args[0] == test_in
@@ -66,7 +66,7 @@ def test_file_to_df_calls_for_parq():
 
 def test_file_reads_from_s3(bucket, s3):
     patch_client(s3)
-    test_out = file_to_df("s3://test_bucket/test_data/test_csv.csv")
+    test_out = file_to_df("s3://test_bucket/test_data/test_csv.csv","csv")
     test_df = df({"student_id" : [1234],"name":["'John Smith'"],"course": ["'Software'"],"cohort": ["'SE-11'"],"graduation_date":["'2024-03-31'"],"email_address":["'j.smith@email.com'"]})
     assert isinstance(test_out, df)
     assert test_out.equals(test_df)

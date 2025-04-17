@@ -7,4 +7,4 @@ def obfuscate(pii_fields,file_df):
         location = file_df.columns.get_loc(column)
         obfuscated_df.insert(location, column, ["***" for i in range(len(file_df))])
     return obfuscated_df
-        
+    
