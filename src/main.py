@@ -1,5 +1,4 @@
 import json
-from pandas import DataFrame as df
 import awswrangler
 
 
