@@ -1,5 +1,6 @@
 import awswrangler
 
+
 def file_to_df(file_loc, file_type):
     if file_type == "csv":
         file_data = awswrangler.s3.read_csv(file_loc)
@@ -10,6 +11,7 @@ def file_to_df(file_loc, file_type):
     else:
         raise InvalidFileType
     return file_data
+
 
 class InvalidFileType(Exception):
     "File Type not supported, Obfuscate only supports csv, JSON, Parquet"
