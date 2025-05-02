@@ -56,7 +56,3 @@ def test_obfuscates_files_in_s3_putable_format(s3):
     s3_out = s3.get_object(Bucket="test_bucket",Key="test_data/obfuscated_test_csv.csv")
     csv_out = s3_out["Body"].read().decode('UTF-8')
     assert csv_out == """student_id,name,course,cohort,graduation_date,email_address\n1234,***,'Software','SE-11','2024-03-31',***\n"""
-
-
-
-
