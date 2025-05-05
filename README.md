@@ -31,13 +31,13 @@ The tool is invoked using a JSON payload, like:
 
 🧪 Sample Input File
 
-student_id,name,course,cohort,graduation_date,email_address
-1234,John Smith,Software,2024-03-31,j.smith@email.com
+    student_id,name,course,cohort,graduation_date,email_address
+    1234,John Smith,Software,2024-03-31,j.smith@email.com
 
 📤 Output (Obfuscated)
 
-student_id,name,course,cohort,graduation_date,email_address
-1234,***,Software,2024-03-31,***
+    student_id,name,course,cohort,graduation_date,email_address
+    1234,***,Software,2024-03-31,***
 
 🧩 Usage
 
@@ -69,7 +69,7 @@ Parquet	✅ Supported
 
 Unit tests are located in the tests/ directory and can be run with:
 
-pytest
+pytest test
 
 🚧 Non-Functional Requirements
 
