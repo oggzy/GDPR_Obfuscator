@@ -1,4 +1,4 @@
-GDPR_Obfuscator
+# GDPR_Obfuscator
 
 A lightweight Python module for anonymizing personally identifiable information (PII) in CSV, JSON, and Parquet files stored in AWS S3.
 📘 Overview
@@ -13,6 +13,7 @@ The GDPR_Obfuscator is designed to be integrated into AWS-based data ingestion w
     Modular and lightweight for AWS Lambda deployment.
 
     Unit-tested and PEP-8 compliant.
+
 
 🛠️ Installation
 
@@ -48,17 +49,20 @@ result_bytes = obfuscate("""
 
 result bytes will be the same format as the input file.
 
-# Optional: Save result back to S3 using boto3
+Optional: Save result back to S3 using boto3
 import boto3
 
 s3 = boto3.client('s3')
 s3.put_object(Bucket='my_output_bucket', Key='obfuscated/file1.csv', Body=result_bytes)
+
 
 📦 File Format Support
 Format	Status
 CSV	✅ Supported
 JSON	✅ Supported
 Parquet	✅ Supported
+
+
 🧪 Testing
 
 Unit tests are located in the tests/ directory and can be run with:
