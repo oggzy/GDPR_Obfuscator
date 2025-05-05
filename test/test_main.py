@@ -1,4 +1,4 @@
-from src.main import GDPR_obfuscate
+from src.main import obfuscate
 from pandas import DataFrame as df
 from unittest.mock import patch
 from moto import mock_aws
@@ -33,8 +33,8 @@ def s3(aws_credentials):
 
 def test_obfuscate_calls_funcs():
     """
-    Test that the `GDPR_obfuscate` function correctly calls the
-    necessary helper functions (`file_to_df`, `obfuscate`, `df_to_bytes`)
+    Test that the `obfuscate` function correctly calls the
+    necessary helper functions (`file_to_df`, `anonymize`, `df_to_bytes`)
     with the appropriate arguments. This ensures that the process
     flow between these functions works as expected.
     """
@@ -44,10 +44,10 @@ def test_obfuscate_calls_funcs():
     # Mocking the helper functions
     with (
         patch("src.main.file_to_df", return_value="read") as patch_read,
-        patch("src.main.obfuscate", return_value="obfs") as patch_obfs,
+        patch("src.main.anonymize", return_value="obfs") as patch_obfs,
         patch("src.main.df_to_bytes", return_value="byte") as patch_byte,
     ):
-        test_out = GDPR_obfuscate(test_in)
+        test_out = obfuscate(test_in)
 
         # Capture the arguments passed to each mocked function
         test_args = []
@@ -55,7 +55,7 @@ def test_obfuscate_calls_funcs():
         test_args.append(patch_obfs.call_args.args)
         test_args.append(patch_byte.call_args.args)
 
-    # Verify that the output of GDPR_obfuscate matches the expected byte output
+    # Verify that the output of obfuscate matches the expected byte output
     assert test_out == "byte"
 
     # Ensure the helper functions were called with the expected arguments
@@ -68,7 +68,7 @@ def test_obfuscate_calls_funcs():
 
 def test_obfuscates_files_in_s3_putable_format(s3):
     """
-    Test that the `GDPR_obfuscate` function correctly obfuscates
+    Test that the `obfuscate` function correctly obfuscates
     a file stored in S3 and outputs the obfuscated data in a valid
     format (CSV). Verifies that the output can be uploaded to an S3
     bucket and retrieved correctly.
@@ -88,12 +88,12 @@ def test_obfuscates_files_in_s3_putable_format(s3):
                       Bucket="test_bucket",
                       Key="test_data/test_csv.csv")
 
-    # Input for the GDPR_obfuscate function
+    # Input for the obfuscate function
     test_in = """{"file_to_obfuscate": "s3://test_bucket/test_data/test_csv.csv",
     "pii_fields": ["name", "email_address"]}"""
 
-    # Call GDPR_obfuscate to get the obfuscated data
-    test_out = GDPR_obfuscate(test_in)
+    # Call obfuscate to get the obfuscated data
+    test_out = obfuscate(test_in)
 
     # Upload the obfuscated data to S3
     s3.put_object(

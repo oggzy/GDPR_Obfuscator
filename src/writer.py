@@ -11,3 +11,4 @@ def df_to_bytes(df, file_type):
     elif file_type == "parquet":
         # Convert to binary Parquet format directly (already returns bytes)
         file_data = df.to_parquet(index=False)
+    return file_data

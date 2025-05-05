@@ -1,6 +1,6 @@
 import json
 import awswrangler
-from src.anon import anonamyse
+from src.anon import anonymize
 from src.reader import file_to_df
 from src.writer import df_to_bytes
 
@@ -18,7 +18,7 @@ def obfuscate(json_fields):
     file_data = file_to_df(file_loc, file_type)
 
     # Anonymize the specified PII fields
-    obfuscated = anonamyse(inputted["pii_fields"], file_data)
+    obfuscated = anonymize(inputted["pii_fields"], file_data)
 
     # Convert the anonymized DataFrame back to bytes for output
     obfuscated_bytes = df_to_bytes(obfuscated, file_type)
