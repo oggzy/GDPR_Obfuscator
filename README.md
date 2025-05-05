@@ -41,7 +41,7 @@ The tool is invoked using a JSON payload, like:
 
 🧩 Usage
 
-    from gdpr_obfuscator import obfuscate
+    from GDPR_obfuscator.obfuscator import obfuscate
 
     result_bytes = obfuscate("""
         s3_uri="s3://my_ingestion_bucket/new_data/file1.csv",
