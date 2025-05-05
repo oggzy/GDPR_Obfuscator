@@ -1,4 +1,4 @@
-from src.main import obfuscate
+from gdpr_obfuscator import obfuscate
 from pandas import DataFrame as df
 from unittest.mock import patch
 from moto import mock_aws
@@ -43,9 +43,9 @@ def test_obfuscate_calls_funcs():
 
     # Mocking the helper functions
     with (
-        patch("src.main.file_to_df", return_value="read") as patch_read,
-        patch("src.main.anonymize", return_value="obfs") as patch_obfs,
-        patch("src.main.df_to_bytes", return_value="byte") as patch_byte,
+        patch("gdpr_obfuscator.file_to_df", return_value="read") as patch_read,
+        patch("gdpr_obfuscator.anonymize", return_value="obfs") as patch_obfs,
+        patch("gdpr_obfuscator.df_to_bytes", return_value="byte") as patch_byte,
     ):
         test_out = obfuscate(test_in)
 
