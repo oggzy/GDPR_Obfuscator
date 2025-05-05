@@ -4,15 +4,16 @@ A lightweight Python module for anonymizing personally identifiable information 
 📘 Overview
 
 The GDPR_Obfuscator is designed to be integrated into AWS-based data ingestion workflows. It identifies and obfuscates sensitive fields in structured data files stored in S3 buckets. This ensures compliance with data privacy obligations for bulk data processing.
+
 ✅ Features
 
-    Obfuscates specified PII fields in CSV files stored in S3.
+Obfuscates specified PII fields in CSV files stored in S3.
 
-    Returns an obfuscated byte stream compatible with boto3's put_object.
+Returns an obfuscated byte stream compatible with boto3's put_object.
 
-    Modular and lightweight for AWS Lambda deployment.
+Modular and lightweight for AWS Lambda deployment.
 
-    Unit-tested and PEP-8 compliant.
+Unit-tested and PEP-8 compliant.
 
 
 🛠️ Installation
@@ -23,10 +24,10 @@ Or if packaging as a Lambda layer, include the AWSSDKPandas-Python313 default la
 
 The tool is invoked using a JSON payload, like:
 
-{
-    "file_to_obfuscate": "s3://my_ingestion_bucket/new_data/file1.csv",
-    "pii_fields": ["name", "email_address"]
-}
+    {
+        "file_to_obfuscate": "s3://my_ingestion_bucket/new_data/file1.csv",
+        "pii_fields": ["name", "email_address"]
+    }
 
 🧪 Sample Input File
 
@@ -40,20 +41,21 @@ student_id,name,course,cohort,graduation_date,email_address
 
 🧩 Usage
 
-from gdpr_obfuscator import obfuscate
+    from gdpr_obfuscator import obfuscate
 
-result_bytes = obfuscate("""
-    s3_uri="s3://my_ingestion_bucket/new_data/file1.csv",
-    pii_fields=["name", "email_address"]
-""")
+    result_bytes = obfuscate("""
+        s3_uri="s3://my_ingestion_bucket/new_data/file1.csv",
+        pii_fields=["name", "email_address"]
+    """)
 
 result bytes will be the same format as the input file.
 
 Optional: Save result back to S3 using boto3
-import boto3
 
-s3 = boto3.client('s3')
-s3.put_object(Bucket='my_output_bucket', Key='obfuscated/file1.csv', Body=result_bytes)
+    import boto3
+
+    s3 = boto3.client('s3')
+    s3.put_object(Bucket='my_output_bucket', Key='obfuscated/file1.csv', Body=result_bytes)
 
 
 📦 File Format Support
@@ -71,12 +73,12 @@ pytest
 
 🚧 Non-Functional Requirements
 
-    Python 3.8+
+Python 3.8+
 
-    PEP-8 compliant
+PEP-8 compliant
 
-    No hardcoded AWS credentials
+No hardcoded AWS credentials
 
-    Compatible with AWS Lambda size/memory constraints
+Compatible with AWS Lambda size/memory constraints
 
-    Security-audited using bandit
+Security-audited using bandit
