@@ -1,16 +1,26 @@
 import json
 import awswrangler
-from src.obfuscator import obfuscate
+from src.anon import anonamyse
 from src.reader import file_to_df
 from src.writer import df_to_bytes
 
 
-def GDPR_obfuscate(json_fields):
+def obfuscate(json_fields):
+    # Parse the input JSON string into a Python dictionary
     inputted = json.loads(json_fields)
+
+    # Extract the file location and determine file type from the extension
     file_loc = inputted["file_to_obfuscate"]
     split_file = file_loc.split(".")
     file_type = split_file[-1]
+
+    # Read the input file into a pandas DataFrame
     file_data = file_to_df(file_loc, file_type)
-    obfuscated = obfuscate(inputted["pii_fields"], file_data)
+
+    # Anonymize the specified PII fields
+    obfuscated = anonamyse(inputted["pii_fields"], file_data)
+
+    # Convert the anonymized DataFrame back to bytes for output
     obfuscated_bytes = df_to_bytes(obfuscated, file_type)
+
     return obfuscated_bytes
