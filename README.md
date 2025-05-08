@@ -1,6 +1,7 @@
 # GDPR_Obfuscator
 
 A lightweight Python module for anonymizing personally identifiable information (PII) in CSV, JSON, and Parquet files stored in AWS S3.
+
 📘 Overview
 
 The GDPR_Obfuscator is designed to be integrated into AWS-based data ingestion workflows. It identifies and obfuscates sensitive fields in structured data files stored in S3 buckets. This ensures compliance with data privacy obligations for bulk data processing.
